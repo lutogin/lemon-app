@@ -1,0 +1,12 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "docker:run": "docker-compose --file docker-compose.yml up",
+    "docker:build": "docker-compose --file docker-compose.yml up --build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
