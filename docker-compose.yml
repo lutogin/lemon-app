@@ -10,7 +10,7 @@ services:
 
   api-manager:
     build:
-      context: ./edge
+      context: ./api-manager
       dockerfile: Dockerfile
     depends_on:
       - postgres
