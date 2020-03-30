@@ -11,7 +11,7 @@ import { GraphQLGatewayModule } from '@nestjs/graphql';
       },
       gateway: {
         serviceList: [
-          { name: 'users', url: process.env.API_MANAGER_HOST },
+          { name: 'users', url: `http://127.0.0.1:3001/graphql` },
         ],
       },
     }),

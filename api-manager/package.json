@@ -23,14 +23,16 @@
     "@apollo/federation": "^0.13.2",
     "@nestjs/common": "^6.10.14",
     "@nestjs/core": "^6.10.14",
-    "@nestjs/graphql": "^7.0.14",
+    "@nestjs/graphql": "^7.1.4",
     "@nestjs/platform-express": "^6.10.14",
+    "@nestjs/typeorm": "^7.0.0",
     "apollo-server-express": "^2.11.0",
     "graphql": "^14.6.0",
     "graphql-tools": "^4.0.7",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.5.4",
+    "typeorm": "^0.2.24"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.13.2",

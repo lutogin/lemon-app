@@ -1,8 +1,8 @@
 # compiled output
-*/dist
-*/node_modules
-*/package-lock.json
-*/yarn.lock
+dist/
+node_modules/
+package-lock.json
+yarn.lock
 
 
 # Logs
@@ -22,5 +22,5 @@ lerna-debug.log*
 
 
 # IDEs
-.vscode
-.idea
+.vscode/
+.idea/

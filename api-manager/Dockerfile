@@ -11,7 +11,6 @@ RUN apk update && \
 FROM node:12.16.1-alpine3.9
 COPY --from=builder /api-manager /
 
-
-EXPOSE 8080
+EXPOSE 3001
 
 CMD ["yarn", "start:dev"]

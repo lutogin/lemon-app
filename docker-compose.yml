@@ -1,15 +1,6 @@
 version: '3'
 
 services:
-  edge:
-    build:
-      context: ./edge
-      dockerfile: Dockerfile
-    ports:
-    - "3000:3000"
-    environment:
-      - API_MANAGER_HOST=api-manager
-
   api-manager:
     build:
       context: ./api-manager
@@ -17,17 +8,17 @@ services:
     depends_on:
       - postgres
     ports:
-      - "80:80"
+      - "3001:3001"
     environment:
-      - DB_HOST=postgres
-      - DB_USER=dev
-      - DB_PASSWORD=1123
-      - DB_NAME=lemon
+      DB_HOST: postgres
+      DB_USER: 'dev'
+      DB_PASSWORD: '1123'
+      DB_NAME: 'lemon'
 
   postgres:
     image: postgres:12.0-alpine
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - postgresdb:/var/lib/postgresql/data
     environment:
@@ -35,6 +26,19 @@ services:
       POSTGRES_PASSWORD: 1123
       POSTGRES_DB: lemon
     restart: unless-stopped
+
+  edge:
+    build:
+      context: ./edge
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-manager
+    restart: always
+    environment:
+      API_MANAGER_HOST: api-manager
+      WAIT_HOSTS: api-manager:3001/graphql
 
 volumes:
   postgresdb:
