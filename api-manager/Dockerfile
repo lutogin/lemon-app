@@ -1,16 +1,10 @@
-FROM node:12.16.1-alpine3.9 as builder
+FROM node:12.16.1-alpine
 
 WORKDIR /api-manager
-COPY ./ /api-manager
 
-RUN apk update && \
-    apk upgrade && \
-    apk add --no-cache bash git openssh && \
-    yarn install
+COPY . .
 
-FROM node:12.16.1-alpine3.9
-COPY --from=builder /api-manager /
+RUN yarn install
+RUN yarn build
 
 EXPOSE 3001
-
-CMD ["yarn", "start:dev"]

@@ -1,14 +1,16 @@
 type User @key(fields: "id") {
-    id: ID!
+    id: Int!
     name: String!
     login: String!
 }
 
 extend type Query {
-    User(id: ID!): User,
+    User(id: Int!): User,
     Users: [User]
 }
 
 extend type Mutation {
-    create(name: String!, login: String!): User
+    createUser(name: String!, login: String!): User
+    updateUser(id: Int!, name: String!, login: String!): User
+    deleteUser(id: Int!): User
 }

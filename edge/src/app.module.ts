@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
+import { GraphQLGatewayModule } from '@nestjs/graphql'
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { GraphQLGatewayModule } from '@nestjs/graphql';
 
 @Module({
   imports: [
@@ -11,7 +11,7 @@ import { GraphQLGatewayModule } from '@nestjs/graphql';
       },
       gateway: {
         serviceList: [
-          { name: 'users', url: `http://127.0.0.1:3001/graphql` },
+          { name: 'users', url: `http://${process.env.API_MANAGER_HOST}:3001/graphql` },
         ],
       },
     }),

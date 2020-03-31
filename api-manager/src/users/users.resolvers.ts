@@ -8,21 +8,31 @@ export class UsersResolvers {
 
   @Query()
   User(@Args('id') id: string): Promise<User> {
-    return this.usersService.getById(id);
+    return this.usersService.findById(id);
   }
 
   @Query()
   Users(): Promise<User[]> {
-    return this.usersService.getAll();
+    return this.usersService.findAll();
   }
 
   @Mutation()
   createUser(_, { name, login }) {
-    return this.usersService.create({ id: null, name, login });
+    return this.usersService.create({ name, login });
+  }
+
+  @Mutation()
+  updateUser(_, { id, name, login }) {
+    return this.usersService.update(id, { name, login });
+  }
+
+  @Mutation()
+  deleteUser(_, { id }) {
+    return this.usersService.delete(id);
   }
 
   @ResolveReference()
   resolveReference(reference: { __typename: string; id: string }) {
-    return this.usersService.getById(reference.id);
+    return this.usersService.findById(reference.id);
   }
 }

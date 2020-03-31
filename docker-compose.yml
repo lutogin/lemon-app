@@ -1,44 +1,64 @@
 version: '3'
 
 services:
-  api-manager:
-    build:
-      context: ./api-manager
-      dockerfile: Dockerfile
-    depends_on:
-      - postgres
-    ports:
-      - "3001:3001"
-    environment:
-      DB_HOST: postgres
-      DB_USER: 'dev'
-      DB_PASSWORD: '1123'
-      DB_NAME: 'lemon'
-
   postgres:
+    container_name: postgres
     image: postgres:12.0-alpine
     ports:
       - "5432:5432"
     volumes:
       - postgresdb:/var/lib/postgresql/data
+    restart: always
     environment:
-      POSTGRES_USER: dev
-      POSTGRES_PASSWORD: 1123
-      POSTGRES_DB: lemon
-    restart: unless-stopped
+      POSTGRES_USER: 'dev'
+      POSTGRES_PASSWORD: '1123'
+      POSTGRES_DB: 'lemon'
+    networks:
+      - webnet
+
+  api-manager:
+    container_name: nest-api-namager
+    build:
+      context: ./api-manager
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    volumes:
+      - ./api-manager:/api-manager
+      - /api-manager/node_modules
+    ports:
+      - "3001:3001"
+    command: yarn start:dev
+    restart: always
+    environment:
+      DB_HOST: postgres
+      DB_USER: 'dev'
+      DB_PASSWORD: '1123'
+      DB_NAME: 'lemon'
+    networks:
+      - webnet
 
   edge:
+    container_name: nest-edge
     build:
       context: ./edge
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
     depends_on:
       - api-manager
+    volumes:
+      - ./edge:/edge
+      - /edge/node_modules
+    ports:
+      - "3000:3000"
+#    command: yarn start:dev
     restart: always
     environment:
       API_MANAGER_HOST: api-manager
-      WAIT_HOSTS: api-manager:3001/graphql
+      WAIT_HOSTS: api-manager:3001
+    networks:
+      - webnet
 
 volumes:
   postgresdb:
+networks:
+  webnet:

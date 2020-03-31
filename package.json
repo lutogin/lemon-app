@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "docker:up": "docker-compose --file docker-compose.yml up",
-    "docker:build": "docker-compose --file docker-compose.yml up --build"
+    "docker:build": "docker-compose --file docker-compose.yml up --build -V"
   },
   "keywords": [],
   "author": "",
