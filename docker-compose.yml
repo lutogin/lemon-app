@@ -30,11 +30,8 @@ services:
       - "3001:3001"
     command: yarn start:dev
     restart: always
-    environment:
-      DB_HOST: postgres
-      DB_USER: 'dev'
-      DB_PASSWORD: '1123'
-      DB_NAME: 'lemon'
+    env_file:
+      - ./api-manager/.env
     networks:
       - webnet
 
@@ -52,8 +49,9 @@ services:
       - "3000:3000"
 #    command: yarn start:dev
     restart: always
+    env_file:
+      - ./edge/.env
     environment:
-      API_MANAGER_HOST: api-manager
       WAIT_HOSTS: api-manager:3001
     networks:
       - webnet

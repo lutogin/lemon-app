@@ -3,6 +3,8 @@ import { GraphQLGatewayModule } from '@nestjs/graphql'
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
+const { API_MANAGER_HOST, API_MANAGER_PORT } = process.env;
+
 @Module({
   imports: [
     GraphQLGatewayModule.forRoot({
@@ -11,7 +13,7 @@ import { AppService } from './app.service';
       },
       gateway: {
         serviceList: [
-          { name: 'users', url: `http://${process.env.API_MANAGER_HOST}:3001/graphql` },
+          { name: 'users', url: `http://${API_MANAGER_HOST}:${API_MANAGER_PORT}/graphql` },
         ],
       },
     }),

@@ -4,6 +4,9 @@ node_modules/
 package-lock.json
 yarn.lock
 
+edge/.env
+api-manager/.env
+
 
 # Logs
 logs
